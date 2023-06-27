@@ -10,10 +10,9 @@ class Person(models.Model):
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     departament = models.CharField(max_length=100)
+    identity_card = models.IntegerField(blank=True, null=True)
     objects = PersonManager()
 
     class Meta:
         verbose_name = "Person"
         verbose_name_plural = "Persons"
-
-
