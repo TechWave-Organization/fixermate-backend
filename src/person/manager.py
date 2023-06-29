@@ -3,7 +3,6 @@ from django.db.models import manager
 from django.shortcuts import get_object_or_404
 from src.schemas.person import InPerson
 
-
 class PersonManager(manager.Manager):
 	def __init__(self) -> None:
 		super().__init__()
