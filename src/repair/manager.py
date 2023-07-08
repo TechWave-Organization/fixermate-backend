@@ -5,7 +5,7 @@ class RepairManager(manager.Manager):
     def __init__(self) -> None:
 	    super().__init__()
 
-class Repair_statusManager(manager.Manager):
+class RepairStatusManager(manager.Manager):
     def __init__(self) -> None:
 	    super().__init__()
 

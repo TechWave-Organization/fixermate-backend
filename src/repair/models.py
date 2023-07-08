@@ -1,6 +1,6 @@
 from django.db import models
 import uuid
-from src.repairs.manager import RepairManager, Repair_statusManager, ServiceManager
+from src.repair.manager import RepairManager, RepairStatusManager, ServiceManager
 # Create your models here.
 
 class repair(models.Model):
@@ -19,7 +19,7 @@ class repair_status(models.Model):
     status = models.CharField(max_length=100)
     repair_id = models.ForeignKey("repair", verbose_name=(""), on_delete=models.CASCADE)
     description = models.CharField(max_length=450)
-    objects = Repair_statusManager()
+    objects = RepairStatusManager()
 
     class Meta:
         verbose_name = "repair_status"
