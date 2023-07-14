@@ -10,6 +10,6 @@ class BrandManager(manager.Manager):
     def __init__(self) -> None:
         super().__init__()
 
-class Device_modelManager(manager.Manager):
+class DeviceModelManager(manager.Manager):
     def __init__(self) -> None:
         super().__init__()
