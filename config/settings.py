@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'src.user',
     'src.person',
-    'src.rapair',
+    'src.repair',
+    'src.device',
 ]
 
 MIDDLEWARE = [
