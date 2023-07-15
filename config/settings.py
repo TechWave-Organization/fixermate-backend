@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'src.person',
     'src.repair',
     'src.product',
+    'src.device',
 ]
 
 MIDDLEWARE = [
