@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'src.repair',
     'src.product',
     'src.device',
+    'src.client',
 ]
 
 MIDDLEWARE = [
