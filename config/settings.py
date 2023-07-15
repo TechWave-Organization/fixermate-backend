@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'src.user',
     'src.person',
     'src.repair',
+    'src.product',
     'src.device',
 ]
 
