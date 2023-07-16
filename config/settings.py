@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'src.product',
     'src.device',
     'src.client',
+    'src.invoice',
 ]
 
 MIDDLEWARE = [
