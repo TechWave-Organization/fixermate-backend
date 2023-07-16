@@ -10,7 +10,7 @@ class Invoice(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     client_id = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
     feature_date = models.DateField
-    objets = InvoiceManager()
+    objects = InvoiceManager()
     
     class Meta:
         verbose_name = "Invoice"
@@ -23,7 +23,7 @@ class InvoiceItem(models.Model):
     discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
     repair_id = models.ForeignKey(Repair, on_delete=models.CASCADE, null=True)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    objets = InvoiceItemManager()
+    objects = InvoiceItemManager()
 
     class Meta:
         verbose_name = "Invoice Item"
