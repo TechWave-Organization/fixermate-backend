@@ -6,8 +6,8 @@ from src.permission.manager import RolManager, RolPermissionManager, UserPermiss
 
 class Rol(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=50)
-    label = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
+    label = models.CharField(max_length=50, unique=True)
     objects = RolManager()
 
     class Meta:
