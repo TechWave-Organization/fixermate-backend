@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'src.client',
     'src.invoice',
     'src.phone',
+    'src.permission',
 ]
 
 MIDDLEWARE = [
