@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from src.user.models import User
-from src.permissions.manager import RolManager, RolPermissionManager, UserPermissionManger
+from src.permission.manager import RolManager, RolPermissionManager, UserPermissionManger
 # Create your models here.
 
 class Rol(models.Model):
@@ -28,7 +28,7 @@ class RolPermission(models.Model):
 class UserPermission(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    permissions_name = models.TextField()
+    permission_name = models.TextField()
     objects = UserPermissionManger()
 
     class Meta:

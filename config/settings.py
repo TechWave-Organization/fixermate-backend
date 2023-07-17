@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'src.device',
     'src.client',
     'src.invoice',
-    'src.permissions',
+    'src.permission',
 ]
 
 MIDDLEWARE = [
