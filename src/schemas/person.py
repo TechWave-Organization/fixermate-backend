@@ -1,5 +1,5 @@
 import uuid
-from ninja import Schema
+from ninja.schema import Schema
 
 
 class InPerson(Schema):
@@ -8,7 +8,7 @@ class InPerson(Schema):
 	address: str = None
 	city: str = None
 	departament: str = None
-	identity_card: str = None
+	identity_card: int = None
 
 class OutPerson(Schema):
 	id: uuid.UUID = None
@@ -16,7 +16,7 @@ class OutPerson(Schema):
 	address: str 
 	city: str
 	departament: str
-	identity_card: str = None
+	identity_card: int = None
 
 
 class NotFoundSchema(Schema):

@@ -8,7 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Invoice(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    client_id = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
     feature_date = models.DateField
     objects = InvoiceManager()
     
@@ -21,8 +21,8 @@ class InvoiceItem(models.Model):
     price = models.PositiveIntegerField
     cost = models.PositiveIntegerField
     discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
-    repair_id = models.ForeignKey(Repair, on_delete=models.CASCADE, null=True)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    repair = models.ForeignKey(Repair, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     objects = InvoiceItemManager()
 
     class Meta:

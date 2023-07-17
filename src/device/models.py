@@ -17,7 +17,7 @@ class DeviceModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=130)
-    brand_id = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     objects = DeviceModelManager()
 
     class Meta:
@@ -27,9 +27,9 @@ class DeviceModel(models.Model):
 
 class Device(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,  editable=False)
-    device_model_id = models.ForeignKey(DeviceModel, on_delete=models.CASCADE, null=True)
+    device_model = models.ForeignKey(DeviceModel, on_delete=models.CASCADE, null=True)
     imei = models.CharField(max_length=30)
-    client_id = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
     objects = DeviceManager()
 
     class Meta:

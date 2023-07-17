@@ -6,7 +6,7 @@ import uuid
 
 class Client(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    person_id = models.ForeignKey(Person, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
     objects = ClientManager()
 
     class Meta:
