@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Phone',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('person_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='person.person')),
+                ('person', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='person.person')),
             ],
             options={
                 'verbose_name': 'Phone',
