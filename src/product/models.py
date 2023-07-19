@@ -8,7 +8,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField
     name = models.CharField
     description = models.TextField
-    # device_models_id = models.ForeignKey(DeviceModel, on_delete=models.CASCADE)
+    # device_models = models.ForeignKey(DeviceModel, on_delete=models.CASCADE)
     cost = models.PositiveIntegerField
     objects = ProductManager()
 

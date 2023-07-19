@@ -1,5 +1,5 @@
 import uuid
-from ninja import Schema
+from ninja.schema import Schema
 
 
 class InPerson(Schema):

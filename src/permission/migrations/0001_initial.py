@@ -10,12 +10,12 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("client", "0001_initial"),
+        ("user", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="Brand",
+            name="Role",
             fields=[
                 (
                     "id",
@@ -26,15 +26,16 @@ class Migration(migrations.Migration):
                         serialize=False,
                     ),
                 ),
-                ("name", models.CharField(max_length=100)),
+                ("name", models.CharField(max_length=50, unique=True)),
+                ("label", models.CharField(max_length=50, unique=True)),
             ],
             options={
-                "verbose_name": "Brand",
-                "verbose_name_plural": "Brands",
+                "verbose_name": "Role",
+                "verbose_name_plural": "Roles",
             },
         ),
         migrations.CreateModel(
-            name="DeviceModel",
+            name="UserPermission",
             fields=[
                 (
                     "id",
@@ -45,24 +46,23 @@ class Migration(migrations.Migration):
                         serialize=False,
                     ),
                 ),
-                ("name", models.CharField(max_length=100)),
-                ("type", models.CharField(max_length=130)),
+                ("permission_name", models.TextField()),
                 (
-                    "brand",
+                    "user",
                     models.ForeignKey(
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="device.brand",
+                        to="user.user",
                     ),
                 ),
             ],
             options={
-                "verbose_name": "Device Model",
-                "verbose_name_plural": "Device Models",
+                "verbose_name": "User Permission",
+                "verbose_name_plural": "User Permissions",
             },
         ),
         migrations.CreateModel(
-            name="Device",
+            name="RolePermission",
             fields=[
                 (
                     "id",
@@ -73,27 +73,19 @@ class Migration(migrations.Migration):
                         serialize=False,
                     ),
                 ),
-                ("imei", models.CharField(max_length=30)),
+                ("permission_name", models.TextField()),
                 (
-                    "client",
+                    "role",
                     models.ForeignKey(
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="client.client",
-                    ),
-                ),
-                (
-                    "device_model",
-                    models.ForeignKey(
-                        null=True,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="device.devicemodel",
+                        to="permission.role",
                     ),
                 ),
             ],
             options={
-                "verbose_name": "Device",
-                "verbose_name_plural": "Devices",
+                "verbose_name": "Role Permission",
+                "verbose_name_plural": "Role Permissions",
             },
         ),
     ]
