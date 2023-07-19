@@ -26,8 +26,8 @@ class ClientManager(manager.Manager):
             if status != 201:
                 raise Exception("Could not create the user person")
             client = self.__create_client({"person_id": person})
-            UserInfo = self.__create_schema(client)
-            return 201, UserInfo
+            user_info = self.__create_schema(client)
+            return 201, user_info
         except Exception as ex:
             return 500, {"message": str(ex)}
 
@@ -37,13 +37,13 @@ class ClientManager(manager.Manager):
         for attr, value in data.dict().items():
             setattr(client.person_id, attr, value)
         client.person_id.save()
-        UserInfo = self.__create_schema(client)
-        return 200, UserInfo
+        user_info = self.__create_schema(client)
+        return 200, user_info
 	
     def get_client(self, client_id):
         client = get_object_or_404(self.model, id=client_id)
-        UserInfo = self.__create_schema(client)
-        return 200, UserInfo
+        user_info = self.__create_schema(client)
+        return 200, user_info
 
 
     def delete_client(self, client_id):
