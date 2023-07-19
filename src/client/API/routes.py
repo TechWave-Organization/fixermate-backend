@@ -63,7 +63,7 @@ def update_client(request, client_id: uuid.UUID, data: client.InClient):
         500: dict,
     }
 )
-def list_person(request):
+def list_client(request):
     return Client.objects.all()
 
 @router.delete(
