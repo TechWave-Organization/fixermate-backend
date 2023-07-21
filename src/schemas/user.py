@@ -18,6 +18,7 @@ class InUser(Schema):
     identity_card: int = None
     
 class OutUser(Schema):
+    id: uuid.UUID
     username: str
     email: str = None
     name: str

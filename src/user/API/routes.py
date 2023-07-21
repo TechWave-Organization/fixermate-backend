@@ -1,6 +1,6 @@
 
 from ninja import Router
-from pyparsing import Any
+from typing import Any
 from src.schemas.user import InUser, OutUser
 from src.user.models import User
 from utils.decorators.permissions import permissions_required
