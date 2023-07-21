@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'src.device',
     'src.client',
     'src.invoice',
+    'src.phone',
     'src.permission',
     'src.authentication'
 ]
