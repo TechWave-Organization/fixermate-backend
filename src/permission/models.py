@@ -21,8 +21,8 @@ class RolePermission(models.Model):
     objects = RolePermissionManager()
 
     class Meta:
-        verbose_name = "Rol Permission"
-        verbose_name_plural = "Rol Permissions"
+        verbose_name = "Role Permission"
+        verbose_name_plural = "Role Permissions"
 
 
 class UserPermission(models.Model):
