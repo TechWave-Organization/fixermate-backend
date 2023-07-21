@@ -1,0 +1,43 @@
+networks:
+  techwave-internal-net:
+    driver: bridge
+    external:
+      name: techwave-internal-net
+
+services:
+  fixermate-backend:
+    image: fixermate-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fixermate_backend_api
+    command: bash -c "python manage.py migrate && python manage.py shell < seeds/create_root_user.py && uvicorn config.asgi:application --host 0.0.0.0 --port 8000"
+    restart: always
+    environment:
+      - DEBUG=True
+    volumes:
+      - .:/home/app/web
+    ports:
+      - "8080:8000"
+    depends_on:
+      - fixermate-database
+    networks:
+      - techwave-internal-net
+
+  fixermate-database:
+    image: postgres:14.8
+    container_name: fixermate_postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - techwave-internal-net
+
+volumes:
+  db_data:
