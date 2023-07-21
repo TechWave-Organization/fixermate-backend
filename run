@@ -1,0 +1,41 @@
+if [ "$1" == "restart" ];then
+    printf "\n\n=> Restarting containers..."
+    printf "\n\n"
+    
+    printf "\n\n=> Creating docker network..."
+    printf "\n"
+    sudo docker network create techwave-internal-net &> /dev/null
+    if [ $? -eq 0 ] ; then
+        echo "Docker Network created";
+    else 
+        echo "Could not create docker network";
+    fi
+    printf "\n"
+    
+    printf "\n\n=> Cleaning database..."
+    printf "\n"
+    sudo docker rm -f -v fixermate_postgres_db &> /dev/null
+    if [ $? -eq 0 ];then
+            echo "Docker Network cleaned";
+        else
+            echo "Could not clean docker network";
+        fi
+
+    printf "\n\n=> Cleaning volume..."
+    printf "\n"
+    sudo docker volume rm -f fixermate-backend_db_data &> /dev/null
+    if [ $? -eq 0 ];then
+        echo "Volume cleaned";
+    else
+        echo "Could not clean volume";
+    fi
+
+    sudo docker-compose -f docker-compose.local.yml build --no-cache && sudo docker-compose -f docker-compose.local.yml up
+fi
+
+if [ "$1" == "start" ];then
+    printf "\n\n=> Starting application..."
+    printf "\n\n"
+    sudo docker network create techwave-internal-net
+    sudo docker-compose -f docker-compose.local.yml up
+fi
