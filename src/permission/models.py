@@ -2,9 +2,11 @@ from django.db import models
 import uuid
 from src.user.models import User
 from src.permission.manager import RoleManager, RolePermissionManager, UserPermissionManger
+from src.base.models import BaseModel
+
 # Create your models here.
 
-class Role(models.Model):
+class Role(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50, unique=True)
     label = models.CharField(max_length=50, unique=True)
@@ -14,7 +16,7 @@ class Role(models.Model):
         verbose_name = "Role"
         verbose_name_plural = "Roles"
 
-class RolePermission(models.Model):
+class RolePermission(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True)
     permission_name = models.TextField()
@@ -25,7 +27,7 @@ class RolePermission(models.Model):
         verbose_name_plural = "Role Permissions"
 
 
-class UserPermission(models.Model):
+class UserPermission(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     permission_name = models.TextField()
