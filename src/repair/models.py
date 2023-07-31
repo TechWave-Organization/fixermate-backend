@@ -7,12 +7,15 @@ from src.base.models import BaseModel
 
 # Create your models here.
 
+
 class Service(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     price = models.IntegerField()
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=450)
-    device_model = models.ForeignKey(DeviceModel, verbose_name="", on_delete=models.CASCADE)
+    device_model = models.ForeignKey(
+        DeviceModel, verbose_name="", on_delete=models.CASCADE
+    )
     objects = ServiceManager()
 
     class Meta:
@@ -21,9 +24,9 @@ class Service(BaseModel):
 
 
 class Repair(BaseModel):
-    id  = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    client = models.ForeignKey(Client, verbose_name=(""), on_delete=models.CASCADE) #Pending
-    device = models.ForeignKey(Device, verbose_name=(""), on_delete=models.CASCADE) #Pending
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    client = models.ForeignKey(Client, verbose_name=(""), on_delete=models.CASCADE)
+    device = models.ForeignKey(Device, verbose_name=(""), on_delete=models.CASCADE)
     service = models.ForeignKey(Service, verbose_name=(""), on_delete=models.CASCADE)
     objects = RepairManager()
 
