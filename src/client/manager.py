@@ -53,7 +53,7 @@ class ClientManager(BaseManager):
         client = get_object_or_404(self.model, id=client_id)
         client.person.delete()
         client.delete()
-        return f"It was eliminated: {client.is_deleted}"
+        return 204
 
     def create_schema(self, client):
         return OutClient(

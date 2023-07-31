@@ -78,7 +78,7 @@ def update_client(request, client_id: uuid.UUID, data: client.InClient):
     "{client_id}",
     response={
         200: Any,
-        400: Any,
+        204: Any,
         401: Any,
         403: Any,
         404: Any,
