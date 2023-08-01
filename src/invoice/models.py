@@ -5,8 +5,10 @@ from src.client.models import Client
 from src.product.models import Product
 from src.repair.models import Repair
 from django.core.validators import MinValueValidator, MaxValueValidator
+from src.base.models import BaseModel
 
-class Invoice(models.Model):
+
+class Invoice(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
     feature_date = models.DateField
@@ -16,7 +18,7 @@ class Invoice(models.Model):
         verbose_name = "Invoice"
         verbose_name_plural = "Invoices"
 
-class InvoiceItem(models.Model):
+class InvoiceItem(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     price = models.PositiveIntegerField
     cost = models.PositiveIntegerField

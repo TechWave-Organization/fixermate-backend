@@ -1,4 +1,3 @@
-
 from ninja import Router
 from typing import Any
 from src.schemas.user import InUser, OutUser
@@ -9,7 +8,7 @@ router = Router(tags=["Users"])
 
 
 @router.post(
-    "/create",
+    "",
     response={
         201: OutUser,
         400: Any,
@@ -19,7 +18,7 @@ router = Router(tags=["Users"])
         500: dict,
     },
     url_name="user-create",
-    auth=None
+    auth=None,
 )
 @permissions_required(role="user", permissions=["create"])
 def create_user(request, user_schema: InUser):

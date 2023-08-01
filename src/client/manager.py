@@ -1,65 +1,67 @@
 from django.db.models import manager
 from django.apps import apps
 from django.shortcuts import get_object_or_404
-from src.person.models import Person 
+from src.base.manager import BaseManager
+from src.person.models import Person
 from src.schemas.client import InClient, OutClient
 from src.schemas.person import InPerson
-class ClientManager(manager.Manager):
+from django.db import transaction
+
+
+class ClientManager(BaseManager):
     def __init__(self) -> None:
         super().__init__()
 
-    def __create_client(self, data:dict):
-        response = self.model(**data)
-        response.save()
-        return response
-
     def create_client(self, data: InClient):
         try:
-            status, person = Person.objects.create_person(InPerson(
-                email = data.email,
-                name = data.name,
-                address = data.address,
-                city = data.city,
-                departament = data.departament,
-                identity_card = data.identity_card
-            ))
-            if status != 201:
-                raise Exception("Could not create the user person")
-            client = self.__create_client({"person_id": person})
-            user_info = self.__create_schema(client)
-            return 201, user_info
+            with transaction.atomic():
+                status, person = Person.objects.create_person(
+                    InPerson(
+                        email=data.email,
+                        name=data.name,
+                        address=data.address,
+                        city=data.city,
+                        departament=data.departament,
+                        identity_card=data.identity_card,
+                    )
+                )
+                if status != 201:
+                    raise Exception(f"Could not create the user person {person}")
+                client = self.create({"person": person})
+                user_info = self.create_schema(client)
+                return 201, user_info
         except Exception as ex:
             return 500, {"message": str(ex)}
 
-
-    def update_client(self, client_id, data:InClient):
+    def update_client(self, client_id, data: InClient):
         client = get_object_or_404(self.model, id=client_id)
         for attr, value in data.dict().items():
-            setattr(client.person_id, attr, value)
-        client.person_id.save()
-        user_info = self.__create_schema(client)
-        return 200, user_info
-	
-    def get_client(self, client_id):
-        client = get_object_or_404(self.model, id=client_id)
-        user_info = self.__create_schema(client)
-        return 200, user_info
+            setattr(client.person, attr, value)
+        client.person.save()
+        client.save()
+        client_info = self.create_schema(client)
+        return 200, client_info
 
+    def get_list(self):
+        client_list = []
+        clients = self.all()
+        for client in clients:
+            client_list.append(self.create_schema(client))
+        return 200, client_list
 
     def delete_client(self, client_id):
         client = get_object_or_404(self.model, id=client_id)
-        client.person_id.delete()
+        client.person.delete()
         client.delete()
-        return 204, "Correctly delete"
+        return f"It was eliminated: {client.is_deleted}"
 
-
-    def __create_schema(self, client):
+    def create_schema(self, client):
         return OutClient(
-            id = client.id,
-            email = client.person_id.email,
-            name = client.person_id.name,
-            address = client.person_id.address,
-            city = client.person_id.city,
-            departament = client.person_id.departament,
-            identity_card = client.person_id.identity_card
+            id=client.id,
+            email=client.person.email,
+            name=client.person.name,
+            address=client.person.address,
+            city=client.person.city,
+            departament=client.person.departament,
+            identity_card=client.person.identity_card,
         )

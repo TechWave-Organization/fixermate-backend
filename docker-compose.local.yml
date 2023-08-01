@@ -11,7 +11,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fixermate_backend_api
-    command: bash -c "python manage.py migrate && python manage.py shell < seeds/create_root_user.py && uvicorn config.asgi:application --host 0.0.0.0 --port 8000"
+    command: bash -c "python manage.py migrate && python manage.py shell < seeds/create_root_user.py && uvicorn config.asgi:application --host 0.0.0.0 --port 8000 --reload"
     restart: always
     environment:
       - DEBUG=True
