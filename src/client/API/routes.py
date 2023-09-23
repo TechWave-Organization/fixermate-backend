@@ -1,10 +1,8 @@
 import uuid
 from ninja import Router
-from ninja.pagination import paginate
 from utils.decorators.permissions import permissions_required
-from utils.pagination import CustomPagination
 from src.schemas import client
-from src.client.models import Client
+from utils.model_loads import get_client_model
 from typing import Any, List
 
 router = Router(tags=["Clients"])
@@ -23,7 +21,7 @@ router = Router(tags=["Clients"])
 )
 @permissions_required(role="client", permissions=["view"])
 def list_client(request):
-    return Client.objects.get_list()
+    return get_client_model().objects.get_list()
 
 
 @router.get(
@@ -39,7 +37,7 @@ def list_client(request):
 )
 @permissions_required(role="client", permissions=["view"])
 def get_client(request, client_id: uuid.UUID):
-    return Client.objects.create_schema(Client.objects.get(client_id))
+    return get_client_model().objects.create_schema(get_client_model().objects.get(client_id))
 
 
 @router.post(
@@ -55,7 +53,7 @@ def get_client(request, client_id: uuid.UUID):
 )
 @permissions_required(role="client", permissions=["create"])
 def create_client(request, data: client.InClient):
-    return Client.objects.create_client(data)
+    return get_client_model().objects.create_client(data)
 
 
 @router.put(
@@ -71,7 +69,7 @@ def create_client(request, data: client.InClient):
 )
 @permissions_required(role="client", permissions=["update"])
 def update_client(request, client_id: uuid.UUID, data: client.InClient):
-    return Client.objects.update_client(client_id, data)
+    return get_client_model().objects.update_client(client_id, data)
 
 
 @router.delete(
@@ -87,4 +85,4 @@ def update_client(request, client_id: uuid.UUID, data: client.InClient):
 )
 @permissions_required(role="client", permissions=["delete"])
 def delete_client(request, client_id: uuid.UUID):
-    return Client.objects.delete_client(client_id)
+    return get_client_model().objects.delete_client(client_id)

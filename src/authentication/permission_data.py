@@ -54,6 +54,84 @@ categories = [
             },
         ],
     },
+    {
+        "name": "brand",
+        "label": "Marca",
+        "permissions": [
+            {
+                "name": "create",
+                "label": "Crear una marca.",
+                "description": "Permite a un usuario autorizado crear nuevas marcas en el sistema.",
+            },
+            {
+                "name": "view",
+                "label": "Visualizar marcas.",
+                "description": "Permite a un usuario autorizado acceder y visualizar la información de las marcas existentes.",
+            },
+            {
+                "name": "update",
+                "label": "Actualizar una marca.",
+                "description": "Permite a un usuario autorizado hacer cambios en los detalles de una marca existente.",
+            },
+            {
+                "name": "delete",
+                "label": "Borrar una marca.",
+                "description": "Permite a un usuario autorizado eliminar una marca del sistema.",
+            },
+        ],
+    },
+    {
+        "name": "device_model",
+        "label": "Modelo de dispositivo",
+        "permissions": [
+            {
+                "name": "create",
+                "label": "Crear un modelo de dispositivo.",
+                "description": "Permite a un usuario autorizado crear nuevos modelos de dispositivos en el sistema.",
+            },
+            {
+                "name": "view",
+                "label": "Visualizar modelos de dispositivo.",
+                "description": "Permite a un usuario autorizado acceder y visualizar la información de los modelos de dispositivos existentes.",
+            },
+            {
+                "name": "update",
+                "label": "Actualizar un modelo de dispositivo.",
+                "description": "Permite a un usuario autorizado hacer cambios en los detalles de un modelo de dispositivo existente.",
+            },
+            {
+                "name": "delete",
+                "label": "Borrar un modelo de dispositivo.",
+                "description": "Permite a un usuario autorizado eliminar un modelo de dispositivo del sistema.",
+            },
+        ],
+    },
+    {
+        "name": "device",
+        "label": "Dispositivo",
+        "permissions": [
+            {
+                "name": "create",
+                "label": "Crear un dispositivo.",
+                "description": "Permite a un usuario autorizado crear nuevos dispositivos en el sistema.",
+            },
+            {
+                "name": "view",
+                "label": "Visualizar dispositivos.",
+                "description": "Permite a un usuario autorizado acceder y visualizar la información de los dispositivos existentes.",
+            },
+            {
+                "name": "update",
+                "label": "Actualizar un dispositivo.",
+                "description": "Permite a un usuario autorizado hacer cambios en los detalles de un dispositivo existente.",
+            },
+            {
+                "name": "delete",
+                "label": "Borrar un dispositivo.",
+                "description": "Permite a un usuario autorizado eliminar un dispositivo del sistema.",
+            },
+        ],
+    },
 ]
 
 

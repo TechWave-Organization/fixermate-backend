@@ -2,7 +2,7 @@ from django.db import transaction
 import bcrypt
 from django.apps import apps
 from django.db.models import manager
-from src.person.models import Person
+from utils.model_loads import get_person_model
 from src.schemas.person import InPerson
 from src.base.manager import BaseManager
 from src.schemas.user import InUser, OutUser
@@ -20,7 +20,7 @@ class UserManager(BaseManager):
     def create_user(self, data: InUser):
         try:
             with transaction.atomic():
-                status, person = Person.objects.create_person(
+                status, person = get_person_model().objects.create_person(
                     InPerson(
                         name=data.name,
                         email=data.email,
