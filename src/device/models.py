@@ -7,7 +7,7 @@ from src.base.models import BaseModel
 
 class Brand(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     objects = BrandManager()
 
     class Meta:
@@ -17,7 +17,7 @@ class Brand(BaseModel):
 
 class DeviceModel(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     type = models.CharField(max_length=130)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     objects = DeviceModelManager()
@@ -28,7 +28,7 @@ class DeviceModel(BaseModel):
 
 
 class Device(BaseModel):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,  editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     device_model = models.ForeignKey(DeviceModel, on_delete=models.CASCADE, null=True)
     imei = models.CharField(max_length=30)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
