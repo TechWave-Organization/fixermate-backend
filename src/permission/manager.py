@@ -2,7 +2,7 @@ import uuid
 from django.db.models import manager
 from src.base.manager import BaseManager
 from src.schemas.user import InUserPermission
-from src.user.models import User
+from utils.model_loads import get_user_model
 
 
 class RoleManager(BaseManager):
@@ -26,7 +26,7 @@ class UserPermissionManger(BaseManager):
 
     def create_user_permission(self, user_id: uuid.UUID, data: InUserPermission):
         try:
-            user = User.objects.get(id=user_id)
+            user = get_user_model().objects.get(id=user_id)
             permissions = []
             if not user:
                 return 404, {"error": "User not found"}
