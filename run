@@ -39,3 +39,37 @@ if [ "$1" == "start" ];then
     sudo docker network create techwave-internal-net
     sudo docker-compose -f docker-compose.local.yml up
 fi
+
+if [ "$1" == "makemigrations" ]; then
+    printf "\n\n=> Running makemigrations inside the container...\n\n"
+    
+    CONTAINER_STATUS=$(sudo docker inspect -f '{{.State.Status}}' fixermate_backend_api)
+
+    if [ "$CONTAINER_STATUS" == "running" ]; then
+        sudo docker exec -it fixermate_backend_api python manage.py makemigrations
+        if [ $? -eq 0 ]; then
+            echo "Makemigrations completed successfully."
+        else
+            echo "Failed to run makemigrations."
+        fi
+    else
+        echo "fixermate_backend_api container is not running. Please start the container first."
+    fi
+fi
+
+if [ "$1" == "migrate" ]; then
+    printf "\n\n=> Running migrate inside the container...\n\n"
+    
+    CONTAINER_STATUS=$(sudo docker inspect -f '{{.State.Status}}' fixermate_backend_api)
+
+    if [ "$CONTAINER_STATUS" == "running" ]; then
+        sudo docker exec -it fixermate_backend_api python manage.py migrate
+        if [ $? -eq 0 ]; then
+            echo "Migration completed successfully."
+        else
+            echo "Failed to run migrate."
+        fi
+    else
+        echo "fixermate_backend_api container is not running. Please start the container first."
+    fi
+fi
