@@ -14,3 +14,8 @@ class BaseManager(manager.Manager):
 
     def get(self, id):
         return get_object_or_404(self.model, id=id)
+
+    def deleted(self, id):
+        model = get_object_or_404(self.model, id=id)
+        model.delete()
+        return 204
