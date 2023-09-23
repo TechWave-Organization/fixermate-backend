@@ -2,7 +2,7 @@ from django.db.models import manager
 from django.apps import apps
 from django.shortcuts import get_object_or_404
 from src.base.manager import BaseManager
-from src.person.models import Person
+from utils.model_loads import get_person_model
 from src.schemas.client import InClient, OutClient
 from src.schemas.person import InPerson
 from django.db import transaction
@@ -15,7 +15,7 @@ class ClientManager(BaseManager):
     def create_client(self, data: InClient):
         try:
             with transaction.atomic():
-                status, person = Person.objects.create_person(
+                status, person = get_person_model().objects.create_person(
                     InPerson(
                         email=data.email,
                         name=data.name,
@@ -50,10 +50,7 @@ class ClientManager(BaseManager):
         return 200, client_list
 
     def delete_client(self, client_id):
-        client = get_object_or_404(self.model, id=client_id)
-        client.person.delete()
-        client.delete()
-        return 204
+        return self.deleted(client_id)
 
     def create_schema(self, client):
         return OutClient(
